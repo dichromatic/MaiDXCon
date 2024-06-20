@@ -45,7 +45,7 @@ def setTouchscreenRK() -> None:
     MPRConfig.setSpecificSensorThreshold(packet[2], packet[4], packet[3])
     # excuse the unreadability but this writes the packet into the serial device character by character as bytes encoded as ascii
     # f string evaluates to something along the lines of '(LAr2)' (see readme)
-    usb_cdc.data.write(bytes(f'({packet[1]}{packet[2]}{packet[3]}{packet[4]}))'), 'ascii')
+    usb_cdc.data.write(bytes(f'({packet[1]}{packet[2]}{packet[3]}{packet[4]})'), 'ascii')
 
 # receving inputs from host
 def receiveCommand() -> None:
