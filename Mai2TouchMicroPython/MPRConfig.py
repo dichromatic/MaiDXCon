@@ -1,8 +1,7 @@
 from adafruit_mpr121 import MPR121
 from MPRAddresses import * # should be fine, only importing variables
-from micropython import const
 import board
-import busio
+import busio # unused but needed for other i2c bus implementation later
 
 # create i2c bus (this implementation uses stemma qt) and assign MPRs
 i2c = board.STEMMA_I2C()
