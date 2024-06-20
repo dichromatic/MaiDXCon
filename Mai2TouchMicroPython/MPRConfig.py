@@ -47,7 +47,7 @@ def configMPR(mpr: MPR121) -> None:
     writeToRegisterStopped(mpr, MPR121_TARGETLIMIT, 182);
     writeToRegisterStopped(mpr, MPR121_LOWLIMIT, 131);
 
-def writeToRegisterStopped(mpr: MPR121, register: const, value: int) -> None: 
+def writeToRegisterStopped(mpr: MPR121, register: int, value: int) -> None: 
     # MPR121 MUST BE IN STOP STATE (ECR 0x0) TO WRITE TO MOST REGISTERS
     mpr._i2c.write(bytes([register, value]))
 
