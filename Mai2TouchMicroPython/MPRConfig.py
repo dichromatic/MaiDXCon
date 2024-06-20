@@ -71,5 +71,3 @@ def setSpecificSensorThreshold(sensor: int, value: int, typ: str) -> None:
         writeToRegisterStopped(mprB, thresholdType + 2 * (sensor - 0x4D), value)
     else: # for sensors D7 to E8, assigned to the 10 electrodes of the third MPR
         writeToRegisterStopped(mprC, thresholdType + 2 * (sensor - 0x59), value)
-
-
