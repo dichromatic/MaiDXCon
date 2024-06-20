@@ -1,6 +1,12 @@
 import MPRConfig
 import usb_cdc
 
+#TODO check if data received from host is actually in the form of readable 
+# bytes as outlined in adafruit library
+#TODO sanity check if types from various methods actually correspond 
+# (binary and hex representation of integers please check especially from
+# mpr121.touched())
+
 # define commands
 RSET  = bytes('E', 'ascii') # E
 HALT  = bytes('L', 'ascii') # L
@@ -20,7 +26,7 @@ MPRs = [MPRConfig.mprA, MPRConfig.mprB, MPRConfig.mprC]
 # main loop
 def loop() -> None:
     receiveCommand()
-    pass if config_mode else sendInput()
+    None if config_mode else sendInput()
 
 # define all the commands and what they do to the MPR
 def commandRSET() -> None:
@@ -64,19 +70,15 @@ def receiveCommand() -> None:
     if length == 5:
         if packet[3] == RSET:
             commandRSET()
-            break
         elif packet[3] == HALT:
             commandHALT()
-            break
         elif packet[3] == STAT:
             commandSTAT()
-            break
         elif packet[3] == Ratio or packet[3] == Sens:
             setTouchscreenRK()
-            break
     # reset
     length = 0
-    packet = []
+    packet = [bytes('', 'ascii')] * 6
 
 def sendInput() -> None:
     # get all touch data simultaneously from mpr.touched(), leftshift by 12 will give 1-12 which one has been touched
