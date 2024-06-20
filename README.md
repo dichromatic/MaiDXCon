@@ -1,1 +1,1 @@
-# MaiDXCon
+# Maimai DX Controller
