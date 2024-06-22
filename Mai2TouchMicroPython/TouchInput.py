@@ -3,12 +3,6 @@ import usb_cdc
 from adafruit_mpr121 import MPR121
 from busio import I2C
 
-#TODO check if data received from host is actually in the form of readable 
-# bytes as outlined in adafruit library
-#TODO sanity check if types from various methods actually correspond 
-# (binary and hex representation of integers please check especially from
-# mpr121.touched())
-
 class TouchInput:
     def __init__(self, mprA: MPR121, mprB: MPR121, mprC: MPR121, i2c: I2C) -> None:
         # define mprs
@@ -95,7 +89,7 @@ class TouchInput:
         # use bytearray to store touched data, initialise with (
         send = bytearray(b'(')
         # write touch data for every sensor fit into 7 sequential bytes, 5 LSB for each byte
-        for b in range(7):
+        for _ in range(7):
             send.append(touchData & 0b11111)
             touchData >>= 5
         # print(send)     # test print
