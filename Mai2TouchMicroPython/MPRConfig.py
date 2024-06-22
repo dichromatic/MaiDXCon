@@ -4,11 +4,11 @@ import board
 import busio # unused but needed for other i2c bus implementation later
 
 # create i2c bus (this implementation uses stemma qt) and assign MPRs
-i2c = board.STEMMA_I2C()
-addresses = [hex(address) for address in i2c.scan()]
-mprA = MPR121(i2c, addresses[0])
-mprB = MPR121(i2c, addresses[1])
-mprC = MPR121(i2c, addresses[2])
+# i2c = board.STEMMA_I2C()
+# addresses = [hex(address) for address in i2c.scan()]
+# mprA = MPR121(i2c, addresses[0])
+# mprB = MPR121(i2c, addresses[1])
+# mprC = MPR121(i2c, addresses[2])
 
 # base instructions to write to the registers on the MPR, similar to the Adafruit MPR121 python library
 def resetMPR(mpr: MPR121) -> None:
