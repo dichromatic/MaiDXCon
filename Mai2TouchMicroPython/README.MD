@@ -204,13 +204,15 @@ example for touching sensor A1:
 
 ## sensor table
 (letters do not refer to keys, only translated to ascii for readability between host and device)
+```log
 A1=0x41 ~ A8=0x48 (a b c d e f g h)
 B1=0x49 ~ B8=0x50 (i j k l m n o p)
 C1=0x51   C2=0x52 (q r)
 D1=0x53 ~ D8=0x5A (s t u v w x y z)
 E1=0x5B ~ E8=0x62 (lwin rwin menu reserved(?) sleep num0 num1 num2)
-
+```
 ## sensor sensitivity value table
+```log
 sens of A1-A8 touch points value, sens value of B1-E8
 -5 = 32,5a,46
 -4 = 32,50,3c
@@ -223,4 +225,5 @@ sens of A1-A8 touch points value, sens value of B1-E8
 +3 = 32,17,05
 +4 = 32,14,01
 +5 = 32,0a,01
+```
 original chinese doc says that both ratio and sens values (under MPR121 terms ratio = touch threshold and sens = release threshold) use this same table
