@@ -1,5 +1,7 @@
 import MPRConfig
 import usb_cdc
+from adafruit_mpr121 import MPR121
+from busio import I2C
 
 #TODO check if data received from host is actually in the form of readable 
 # bytes as outlined in adafruit library
@@ -7,7 +9,7 @@ import usb_cdc
 # (binary and hex representation of integers please check especially from
 # mpr121.touched())
 
-class TouchInput
+class TouchInput:
     def __init__(self, mprA: MPR121, mprB: MPR121, mprC: MPR121, i2c: I2C) -> None:
         # define mprs
         self.mprA, self.mprB, self.mprC = mprA, mprB, mprC
@@ -54,7 +56,7 @@ class TouchInput
         # f string evaluates to something along the lines of '(LAr2)' (see readme)
         usb_cdc.data.write(f'({packet[1]}{packet[2]}{packet[3]}{packet[4]})')
 
-    # receving inputs from host
+    # receving commands from host / game
     def receiveCommand(self) -> None:
         packet = [b''] * 6   # self contained data packet to this function
         length = 0
@@ -82,7 +84,7 @@ class TouchInput
             self.i2c.unlock()
         # reset
         length = 0
-        packet = [b'' * 6
+        packet = [b''] * 6
 
     def sendInput(self) -> None:
         # append all touchdata from each mpr to each other
