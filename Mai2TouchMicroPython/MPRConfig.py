@@ -47,7 +47,7 @@ def setThresholds(mpr: MPR121, touch: int, release: int) -> None:
         writeToRegisterStopped(mpr, MPR121_TOUCHTH_0 + 2 * i, touch)
         writeToRegisterStopped(mpr, MPR121_RELEASETH_0 + 2 * i, release)
 
-def setSpecificSensorThreshold(sensor: int, value: int, typ: str) -> None:
+def setSpecificSensorThreshold(sensor: int, value: int, typ: str, mprA: MPR121, mprB: MPR121, mprC: MPR121) -> None:
     # set type of threshold either release or touch (ratio or sens)
     if typ == 'r':
         thresholdType = MPR121_RELEASETH_0

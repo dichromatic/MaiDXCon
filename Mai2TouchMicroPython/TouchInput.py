@@ -52,24 +52,26 @@ class TouchInput:
     # touchscreen ratio and sensitivity
     def setTouchscreenRK(self, packet: list) -> None:
         # set ratio for the sensors
-        MPRConfig.setSpecificSensorThreshold(packet[2], packet[4], packet[3])
+        MPRConfig.setSpecificSensorThreshold(ord(packet[2]), ord(packet[4]) - 48, packet[3], self.mprA, self.mprB, self.mprC)
         # f string evaluates to something along the lines of '(LAr2)' (see readme)
-        usb_cdc.data.write(f'({packet[1]}{packet[2]}{packet[3]}{packet[4]})')
+        usb_cdc.data.write(f'({"".join([char.decode("ascii") for char in packet[1:5]])})')
 
     # receving commands from host / game
     def receiveCommand(self) -> None:
         packet = [b''] * 6   # self contained data packet to this function
         length = 0
         # read bytes sequentially if available
+        print(usb_cdc.data.in_waiting)
         while usb_cdc.data.in_waiting:
-            read = usb_cdc.data.read()
+            read = usb_cdc.data.read(1)
+            print(read)
             if read == b'{':
                 length = 0
             if read == b'}':
                 break
-            length += 1     # increment length corresponding to packet byte
             packet[length] = read   # fill packet with read bytes
-            usb_cdc.console.write(f'packet: \n{packet}')
+            length += 1     # increment length corresponding to packet byte
+            usb_cdc.console.write(f'packet: {packet}\n')
         # which command to run based off received data
         if length == 5:     # check if command received is a config command
             self.i2c.try_lock() # must be in locked mode to config
