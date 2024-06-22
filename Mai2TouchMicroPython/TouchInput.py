@@ -61,17 +61,15 @@ class TouchInput:
         packet = [b''] * 6   # self contained data packet to this function
         length = 0
         # read bytes sequentially if available
-        print(usb_cdc.data.in_waiting)
         while usb_cdc.data.in_waiting:
             read = usb_cdc.data.read(1)
-            print(read)
             if read == b'{':
                 length = 0
             if read == b'}':
                 break
             packet[length] = read   # fill packet with read bytes
             length += 1     # increment length corresponding to packet byte
-            usb_cdc.console.write(f'packet: {packet}\n')
+        usb_cdc.console.write(f'packet: {packet}\n')
         # which command to run based off received data
         if length == 5:     # check if command received is a config command
             self.i2c.try_lock() # must be in locked mode to config
@@ -100,7 +98,7 @@ class TouchInput:
         for b in range(7):
             send.append(touchData & 0b11111)
             touchData >>= 5
-        print(send)     # test print
+        # print(send)     # test print
         send.append(ord(')'))
         # write touch data to host
         usb_cdc.data.write(bytes(send))

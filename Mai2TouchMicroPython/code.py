@@ -33,6 +33,6 @@ configMPR(mprA)
 i2c.unlock()    # unlock to start touch inputs
 
 # start main touch input loop
-touchInput = TouchInput()
+touchInput = TouchInput(mprA, mprB, mprC, i2c)
 while True:
-    touchInput.loop(mprA, mprB, mprC)
+    touchInput.loop()
