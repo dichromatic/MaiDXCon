@@ -24,7 +24,7 @@ class TouchInput:
         self.Sens  = b'k' # k
 
     # main loop
-    def loop(self, mprList: list) -> None:
+    def loop(self) -> None:
         self.receiveCommand()
         None if self.config_mode else self.sendInput()
 
