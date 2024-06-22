@@ -15,11 +15,11 @@ class TouchInput
         self.i2c = i2c
         self.config_mode = True
         # define commands
-        self.RSET  = bytes('E', 'ascii') # E
-        self.HALT  = bytes('L', 'ascii') # L
-        self.STAT  = bytes('A', 'ascii') # A
-        self.Ratio = bytes('r', 'ascii') # r
-        self.Sens  = bytes('k', 'ascii') # k
+        self.RSET  = b'E' # E
+        self.HALT  = b'L' # L
+        self.STAT  = b'A' # A
+        self.Ratio = b'r' # r
+        self.Sens  = b'k' # k
 
     # main loop
     def loop(self, mprList: list) -> None:
@@ -51,20 +51,19 @@ class TouchInput
     def setTouchscreenRK(self, packet: list) -> None:
         # set ratio for the sensors
         MPRConfig.setSpecificSensorThreshold(packet[2], packet[4], packet[3])
-        # excuse the unreadability but this writes the packet into the serial device character by character as bytes encoded as ascii
         # f string evaluates to something along the lines of '(LAr2)' (see readme)
         usb_cdc.data.write(f'({packet[1]}{packet[2]}{packet[3]}{packet[4]})')
 
     # receving inputs from host
     def receiveCommand(self) -> None:
-        packet = [bytes('', 'ascii')] * 6   # self contained data packet to this function
+        packet = [b''] * 6   # self contained data packet to this function
         length = 0
         # read bytes sequentially if available
         while usb_cdc.data.in_waiting:
             read = usb_cdc.data.read()
-            if read == bytes('{', 'ascii'):
+            if read == b'{':
                 length = 0
-            if read == bytes('}', 'ascii'):
+            if read == b'}':
                 break
             length += 1     # increment length corresponding to packet byte
             packet[length] = read   # fill packet with read bytes
@@ -83,7 +82,7 @@ class TouchInput
             self.i2c.unlock()
         # reset
         length = 0
-        packet = [bytes('', 'ascii')] * 6
+        packet = [b'' * 6
 
     def sendInput(self) -> None:
         # append all touchdata from each mpr to each other
