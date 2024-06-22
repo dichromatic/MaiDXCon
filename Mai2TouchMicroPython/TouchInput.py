@@ -52,7 +52,7 @@ class TouchInput:
     # touchscreen ratio and sensitivity
     def setTouchscreenRK(self, packet: list) -> None:
         # set ratio for the sensors
-        MPRConfig.setSpecificSensorThreshold(ord(packet[2]), ord(packet[4]) - 48, packet[3], self.mprA, self.mprB, self.mprC)
+        MPRConfig.setSpecificSensorThreshold(ord(packet[2]), ord(packet[4]), packet[3], self.mprA, self.mprB, self.mprC)
         # f string evaluates to something along the lines of '(LAr2)' (see readme)
         usb_cdc.data.write(f'({"".join([char.decode("ascii") for char in packet[1:5]])})')
 
