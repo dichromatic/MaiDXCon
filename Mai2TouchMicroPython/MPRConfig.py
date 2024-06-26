@@ -28,14 +28,14 @@ def configMPR(mpr: MPR121) -> None:
     writeToRegisterStopped(mpr, MPR121_NCLT, 0x0)
     writeToRegisterStopped(mpr, MPR121_FDLT, 0x0)
     setThresholds(mpr, 10, 10)
-    writeToRegisterStopped(mpr, MPR121_DEBOUNCE, (4 << 4) | 0x2)
-    writeToRegisterStopped(mpr, MPR121_CONFIG1, 0x10)
-    writeToRegisterStopped(mpr, MPR121_CONFIG2, 1 << 5)
+    writeToRegisterStopped(mpr, MPR121_DEBOUNCE, (4 << 4) | 0x2);
+    writeToRegisterStopped(mpr, MPR121_CONFIG1, 0x10);
+    writeToRegisterStopped(mpr, MPR121_CONFIG2, 1 << 5);
     writeToRegisterStopped(mpr, MPR121_AUTOCONFIG0, 0x0B)
-    writeToRegisterStopped(mpr, MPR121_AUTOCONFIG1, (1 << 7))
-    writeToRegisterStopped(mpr, MPR121_UPLIMIT, 202)
-    writeToRegisterStopped(mpr, MPR121_TARGETLIMIT, 182)
-    writeToRegisterStopped(mpr, MPR121_LOWLIMIT, 131)
+    writeToRegisterStopped(mpr, MPR121_AUTOCONFIG1, (1 << 7));
+    writeToRegisterStopped(mpr, MPR121_UPLIMIT, 202);
+    writeToRegisterStopped(mpr, MPR121_TARGETLIMIT, 182);
+    writeToRegisterStopped(mpr, MPR121_LOWLIMIT, 131);
 
 def writeToRegisterStopped(mpr: MPR121, register: int, value: int) -> None:
     # MPR121 MUST BE IN STOP STATE (ECR 0x0) TO WRITE TO MOST REGISTERS
@@ -47,9 +47,9 @@ def setThresholds(mpr: MPR121, touch: int, release: int) -> None:
         writeToRegisterStopped(mpr, MPR121_TOUCHTH_0 + 2 * i, touch)
         writeToRegisterStopped(mpr, MPR121_RELEASETH_0 + 2 * i, release)
 
-def setSpecificSensorThreshold(sensor: int, value: int, typ: str, mprA: MPR121, mprB: MPR121, mprC: MPR121) -> None:
+def setSpecificSensorThreshold(sensor: int, value: int, typ: int, mprA: MPR121, mprB: MPR121, mprC: MPR121) -> None:
     # set type of threshold either release or touch (ratio or sens)
-    if typ == 'r':
+    if typ == 114:  # 114 = 'r'
         thresholdType = MPR121_RELEASETH_0
     else:
         thresholdType = MPR121_TOUCHTH_0

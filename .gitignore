@@ -1,3 +1,4 @@
 *.ino
 *.h
 .DS_Store
+.vscode
