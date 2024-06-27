@@ -1,14 +1,13 @@
 import adafruit_mpr121
 import board
 import usb_cdc
-import time
 from TouchInput import TouchInput
 from MPRConfig import configMPR
 
-# here we initialise the MPRs, configurate them based on Mai2Touch spec and then 
+# here we initialise the MPRs, configurate them based on Mai2Touch spec and then
 # pass it to TouchInput to start listening to the game
 
-# set serial timeout 
+# set serial timeout
 usb_cdc.data.timeout = 0
 
 # create i2c bus, get the addresses of the mprs

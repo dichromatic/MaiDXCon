@@ -2,3 +2,4 @@
 *.h
 .DS_Store
 .vscode
+.mpy

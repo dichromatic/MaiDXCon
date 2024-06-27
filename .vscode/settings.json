@@ -4,5 +4,12 @@
     "python.analysis.diagnosticSeverityOverrides": {
         "reportMissingModuleSource": "none",
         "reportShadowedImports": "none"
-    }
+    },
+    "python.analysis.extraPaths": [
+        "/Users/rumi/.vscode-oss/extensions/joedevivo.vscode-circuitpython-0.2.0-darwin-arm64/boards/0x1B4F/0x0026",
+        "/Users/rumi/.vscode-oss/extensions/joedevivo.vscode-circuitpython-0.2.0-darwin-arm64/stubs",
+        "/Users/rumi/Library/Application Support/VSCodium/User/globalStorage/joedevivo.vscode-circuitpython/bundle/20240618/adafruit-circuitpython-bundle-py-20240618/lib"
+    ],
+    "circuitpython.board.vid": "0x1B4F",
+    "circuitpython.board.pid": "0x0026"
 }
